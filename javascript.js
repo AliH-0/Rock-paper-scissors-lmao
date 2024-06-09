@@ -18,59 +18,61 @@ else {
 }
 }
 
-function getHumanChoice(){
-
-    const player = prompt("choose Rock, Paper, or Scissors.").toLowerCase();
-    if (player == "rock" || player == "paper" || player == "scissors") {
-        return player;
-    }
-
-    else {
-        alert("please enter a valid answer: rock, paper, or scissors.")
-        getHumanChoice();
-    }
-}
 
 
 let humanScore = 0;
 let computerScore = 0;
 
-function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice) {
    
-    humanChoice = getHumanChoice();
     computerChoice = getComputerChoice();
-
     if(humanChoice == computerChoice) {
-        return alert("Draw");
+
+        document.getElementById("Result").textContent = "Draw!";
     }
     else if(humanChoice == "rock" && computerChoice == "scissors" || humanChoice == "scissors" && computerChoice == "paper" || humanChoice =="paper" && computerChoice == "rock"){
         humanScore++;
-        return alert("You picked " +humanChoice +" and WON! Computer picked " + computerChoice + "!");
+        document.getElementById("humanScore").textContent = humanScore;
+        document.getElementById("Result").textContent = "You picked " + humanChoice +" and WON! Computer picked " + computerChoice + "!";
+        AnnounceWinner();
         
     }
     else {
         computerScore++;
-        return alert("You picked " +humanChoice +" and LOST! Computer picked " + computerChoice + "!");
+        document.getElementById("computerScore").textContent = computerScore;
+        document.getElementById("Result").textContent = "You picked "  + humanChoice +" and LOST! Computer picked " + computerChoice + "!";
+        AnnounceWinner();
         
     }
+
+
 }
 
-function playGame() {
-    for(let i = 0; i < 5;i++){
-        playRound();
+function AnnounceWinner() {
+    if(computerScore >= 5) {
+        document.getElementById("Result").textContent = "You Lose! Game will reset.";
+        document.getElementById("humanScore").textContent = '0';
+        document.getElementById("computerScore").textContent = '0';
+        humanScore = 0;
+        computerScore = 0;
     }
-    if(humanScore > computerScore) {
-        alert("Congratulations! You win! Score: " + humanScore + " - " + computerScore);
-    }
-    else if  (humanScore <  computerScore) {
-        alert("Better luck next time, you lose... Score: " + humanScore + " - " + computerScore);
+    else if (humanScore >= 5) {
+        document.getElementById("Result").textContent = "You win! Game will reset.";
+        document.getElementById("humanScore").textContent = '0';
+        document.getElementById("computerScore").textContent = '0';
+        humanScore = 0;
+        computerScore = 0;
     }
     else {
-        alert("It's a Draw! Score" + computerScore + " - " + humanScore);
+        return null;
     }
 }
 
-playGame();
+
+document.getElementById("rock").addEventListener("click", () => playRound("rock"));
+document.getElementById("paper").addEventListener("click", () => playRound("paper"));
+document.getElementById("scissors").addEventListener("click", () => playRound("scissors"));
+
 
 
     
