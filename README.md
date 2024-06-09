@@ -1,1 +1,1 @@
-# Rock-paper-scissors-lmao
+# Rock-paper-scissors
